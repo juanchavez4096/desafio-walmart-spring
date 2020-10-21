@@ -1,0 +1,19 @@
+# Spring Boot configuration
+spring:
+  profiles:
+    active: prod
+  data:
+    mongodb:
+      database: ${MONGO_DATABASE}
+      uri: ${MONGO_URI}
+# Logger configuration
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} %5p - %m - %X{txRef} %n" 
+  level:
+    org.springframework: INFO
+    org.hibernate: DEBUG
+# Server configuration
+server:
+  port: 80
+  sessionTimeout: 30
