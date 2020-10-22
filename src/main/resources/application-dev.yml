@@ -1,0 +1,22 @@
+# Spring Boot configuration
+spring:
+  profiles:
+    active: dev
+  data:
+    mongodb:
+      database: ${MONGO_DATABASE}
+      uri: ${MONGO_URI}
+# Logger configuration
+logging:
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+  level:
+    org.springframework: INFO
+    org.hibernate: INFO
+# Server configuration
+server:
+  port: 8080
+  sessionTimeout: 30
+
+page:
+  size: 24
