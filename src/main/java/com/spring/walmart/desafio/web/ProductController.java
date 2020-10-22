@@ -9,11 +9,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.constraints.NotBlank;
 
 @RestController
 @RequestMapping("/api")
 @Log4j2
+@Validated
 public class ProductController {
 
     @Autowired
@@ -23,7 +27,7 @@ public class ProductController {
     Integer size;
 
     @GetMapping("v1/products/findPage")
-    public ResponseEntity<Page<ProductDto>> findByOrderNumber(@RequestParam String search,
+    public ResponseEntity<Page<ProductDto>> findByOrderNumber(@RequestParam @NotBlank String search,
                                                               @RequestParam(defaultValue = "0") Integer page) {
 
         log.info("Getting " + search + " in page " + page);

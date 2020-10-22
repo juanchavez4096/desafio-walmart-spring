@@ -1,5 +1,6 @@
 package com.spring.walmart.desafio.e2e;
 
+import com.spring.walmart.desafio.data.document.Product;
 import com.spring.walmart.desafio.service.dto.ProductDto;
 import com.spring.walmart.desafio.service.impl.ProductServiceImpl;
 import com.spring.walmart.desafio.web.ProductController;
@@ -24,6 +25,8 @@ import java.util.Collections;
 @TestPropertySource(properties="page.size=24")
 public class ProductControllerTest {
 
+    ProductDto headphones = new ProductDto(1L, "walmart", "Headphones", "www.lider.com/image.svg", 2500d, 50L);
+
     @MockBean
     ProductServiceImpl productService;
     @Autowired
@@ -31,11 +34,23 @@ public class ProductControllerTest {
 
     @Test
     public void numericSearch() throws Exception {
-        BDDMockito.given(productService.getPageOfProducts(BDDMockito.anyString(), BDDMockito.any())).willReturn(new PageImpl<ProductDto>(Collections.singletonList(new ProductDto())));
+
+        BDDMockito.given(productService.getPageOfProducts(BDDMockito.anyString(), BDDMockito.any())).willReturn(new PageImpl<>(Collections.singletonList(headphones)));
 
         mvc.perform(MockMvcRequestBuilders.get("/api/v1/products/findPage?search=1")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content[0].id").value("1"));
+
+        mvc.perform(MockMvcRequestBuilders.get("/api/v1/products/findPage?search=-1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content[0].id").value("1"));
+
+        mvc.perform(MockMvcRequestBuilders.get("/api/v1/products/findPage?search=")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content[0].id").value("1"));
 
     }
 }

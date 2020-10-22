@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.spring.walmart</groupId>
 	<artifactId>desafio</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>desafio</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -70,6 +70,12 @@
 			<groupId>com.openpojo</groupId>
 			<artifactId>openpojo</artifactId>
 			<version>${openpojo.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.1.6.Final</version>
 		</dependency>
 	</dependencies>
 
