@@ -1,7 +1,8 @@
 #### Stage 1: Build the application
-FROM openjdk:11-jdk-slim as build
+FROM maven:3-jdk-11-slim as build
 
 # Set the current working directory inside the image
+
 WORKDIR /app
 
 # Copy maven executable to the image
@@ -11,7 +12,7 @@ COPY pom.xml .
 COPY src src
 
 # Package the application
-RUN ./mvnw package
+RUN mvn package
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
 #### Stage 2: A minimal docker image with command to run the app
@@ -24,4 +25,4 @@ COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
 
-ENTRYPOINT ["java","-XX:+UnlockExperimentalVMOptions","-cp","app:app/lib/*","com.message.system.network.NetworkApplication"]
+ENTRYPOINT ["java","-XX:+UnlockExperimentalVMOptions","-cp","app:app/lib/*","com.spring.walmart.desafio.DesafioApplication"]
