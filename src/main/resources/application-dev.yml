@@ -17,3 +17,6 @@ logging:
 server:
   port: 8080
   sessionTimeout: 30
+
+page:
+  size: 24

@@ -17,3 +17,6 @@ logging:
 server:
   port: 80
   sessionTimeout: 30
+
+page:
+  size: ${PAGE_SIZE}
