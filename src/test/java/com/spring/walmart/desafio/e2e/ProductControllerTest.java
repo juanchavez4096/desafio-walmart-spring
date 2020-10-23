@@ -47,7 +47,7 @@ public class ProductControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.content[0].id").value("1"));
 
-        mvc.perform(MockMvcRequestBuilders.get("/api/v1/products/findPage?search=null")
+        mvc.perform(MockMvcRequestBuilders.get("/api/v1/products/findPage")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
 

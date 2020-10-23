@@ -60,6 +60,7 @@ public class ProductServiceTest {
     public void getProductsNotPalindrome(){
 
         String searchString = "abbaa";
+        String searchStringShort = "ab";
         String searchId = "25";
 
         Page<Product> product = new PageImpl<>(Collections.singletonList(headphones));
@@ -72,6 +73,7 @@ public class ProductServiceTest {
 
         Assertions.assertNotNull(productServiceImpl.getPageOfProducts(searchString, PageRequest.of(1,24)));
         Assertions.assertNotNull(productServiceImpl.getPageOfProducts(searchId, PageRequest.of(1,24)));
+        Assertions.assertNotNull(productServiceImpl.getPageOfProducts(searchStringShort, PageRequest.of(1,24)));
     }
 
 
