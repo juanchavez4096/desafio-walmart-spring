@@ -25,7 +25,7 @@ import java.util.Collections;
 @TestPropertySource(properties="page.size=24")
 public class ProductControllerTest {
 
-    ProductDto headphones = new ProductDto(1L, "walmart", "Headphones", "www.lider.com/image.svg", 2500d, 50L);
+    ProductDto headphones = new ProductDto(1L, "walmart", "Headphones", "www.lider.com/image.svg", 2500d, 50L, 1250d);
 
     @MockBean
     ProductServiceImpl productService;
@@ -47,10 +47,9 @@ public class ProductControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.content[0].id").value("1"));
 
-        mvc.perform(MockMvcRequestBuilders.get("/api/v1/products/findPage?search=")
+        mvc.perform(MockMvcRequestBuilders.get("/api/v1/products/findPage?search=null")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.content[0].id").value("1"));
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
 
     }
 }
