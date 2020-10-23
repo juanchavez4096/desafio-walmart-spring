@@ -18,4 +18,5 @@ public class ProductDto implements Serializable {
     private String image;
     private Double price;
     private Long discount;
+    private Double priceDiscount;
 }

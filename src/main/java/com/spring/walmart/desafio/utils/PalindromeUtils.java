@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class PalindromeUtils {
 
     public ProductDto palindromeApplication(Product product, boolean isPalindrome){
-        return ProductMapper.INSTANCE.productToProductDto(product, isPalindrome ? 50L : 0L);
+        return ProductMapper.INSTANCE.productToProductDto(product, isPalindrome ? 50L : 0L, isPalindrome ? product.getPrice()/2 : product.getPrice());
     }
 
     public Boolean palindromeValidation(String search){

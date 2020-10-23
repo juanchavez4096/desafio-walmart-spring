@@ -11,8 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/api")
@@ -27,7 +26,7 @@ public class ProductController {
     Integer size;
 
     @GetMapping("v1/products/findPage")
-    public ResponseEntity<Page<ProductDto>> findByOrderNumber(@RequestParam @NotBlank String search,
+    public ResponseEntity<Page<ProductDto>> findByOrderNumber(@RequestParam @NotNull String search,
                                                               @RequestParam(defaultValue = "0") Integer page) {
 
         log.info("Getting " + search + " in page " + page);
