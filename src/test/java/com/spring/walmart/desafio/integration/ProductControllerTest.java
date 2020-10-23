@@ -1,6 +1,5 @@
-package com.spring.walmart.desafio.e2e;
+package com.spring.walmart.desafio.integration;
 
-import com.spring.walmart.desafio.data.document.Product;
 import com.spring.walmart.desafio.service.dto.ProductDto;
 import com.spring.walmart.desafio.service.impl.ProductServiceImpl;
 import com.spring.walmart.desafio.web.ProductController;
