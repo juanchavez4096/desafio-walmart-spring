@@ -28,11 +28,11 @@ public class ProductServiceImpl implements ProductService {
     public Page<ProductDto> getPageOfProducts(String search, Pageable pageable) {
 
 
-        Boolean isPalindrome = palindromeUtils.palindromeValidation(search.trim().toLowerCase().replace(" ", ""));
         if (NumberUtils.isParsable(search)){
             log.info("Is number: " + search);
-            return productRepository.findById(Long.parseLong(search), pageable).map( p -> palindromeUtils.palindromeApplication(p, isPalindrome));
+            return productRepository.findById(Long.parseLong(search), pageable).map( p -> palindromeUtils.palindromeApplication(p, Boolean.FALSE));
         }
+        Boolean isPalindrome = palindromeUtils.palindromeValidation(search.trim().toLowerCase().replace(" ", ""));
         return search.length() > 3 ?
                 productRepository.findByBrandIgnoreCaseContainsOrDescriptionIgnoreCaseContains(search, search, pageable).map( p ->
                         palindromeUtils.palindromeApplication(p, isPalindrome)

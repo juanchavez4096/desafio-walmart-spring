@@ -19,4 +19,4 @@ server:
   sessionTimeout: 30
 
 page:
-  size: 24
+  size: 4
