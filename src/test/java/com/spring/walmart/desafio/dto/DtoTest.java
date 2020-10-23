@@ -1,6 +1,7 @@
 package com.spring.walmart.desafio.dto;
 
 import com.spring.walmart.desafio.data.document.Product;
+import com.spring.walmart.desafio.error.ExceptionInfoJson;
 import com.spring.walmart.desafio.service.dto.ProductDto;
 import com.spring.walmart.desafio.utils.PojoTestUtils;
 import org.junit.Assert;
@@ -20,6 +21,9 @@ public class DtoTest {
     @InjectMocks
     private ProductDto productDto;
 
+    @InjectMocks
+    private ExceptionInfoJson exceptionInfoJson;
+
     @Before
     public void before() {
         MockitoAnnotations.initMocks(this);
@@ -30,9 +34,11 @@ public class DtoTest {
 
         PojoTestUtils.validateAccessors(Product.class);
         PojoTestUtils.validateAccessors(ProductDto.class);
+        PojoTestUtils.validateAccessors(ExceptionInfoJson.class);
 
         Assert.assertNotNull(product.toString());
         Assert.assertNotNull(productDto.toString());
+        Assert.assertNotNull(exceptionInfoJson.toString());
 
     }
 }
