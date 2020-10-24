@@ -27,6 +27,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<ProductDto> getPageOfProducts(String search, Pageable pageable) {
 
+        if (search.isEmpty()){
+            return productRepository.findBy(pageable).map(p ->
+                    palindromeUtils.palindromeApplication(p, Boolean.FALSE)
+            );
+        }
+
         if (NumberUtils.isParsable(search)){
             log.info("Is number: " + search);
             return productRepository.findById(Long.parseLong(search), pageable).map( p -> palindromeUtils.palindromeApplication(p, Boolean.FALSE));
@@ -37,8 +43,6 @@ public class ProductServiceImpl implements ProductService {
                 productRepository.findByBrandIgnoreCaseContainsOrDescriptionIgnoreCaseContains(search, search, pageable).map( p ->
                         palindromeUtils.palindromeApplication(p, isPalindrome)
                 ) :
-                productRepository.findByBrandIgnoreCaseContainsOrDescriptionIgnoreCaseContains(search, search, pageable).map( p ->
-                        palindromeUtils.palindromeApplication(p, Boolean.FALSE)
-                );
+                new PageImpl<>(Collections.emptyList());
     }
 }

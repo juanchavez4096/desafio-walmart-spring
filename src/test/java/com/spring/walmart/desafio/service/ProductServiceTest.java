@@ -60,7 +60,8 @@ public class ProductServiceTest {
     public void getProductsNotPalindrome(){
 
         String searchString = "abbaa";
-        String searchStringShort = "ab";
+        String searchStringShort = "aa";
+        String searchStringEmpty = "";
         String searchId = "25";
 
         Page<Product> product = new PageImpl<>(Collections.singletonList(headphones));
@@ -68,12 +69,15 @@ public class ProductServiceTest {
                 .thenReturn(product);
         Mockito.when(productRepository.findById(Mockito.anyLong(), Mockito.any()))
                 .thenReturn(product);
+        Mockito.when(productRepository.findBy(Mockito.any()))
+                .thenReturn(product);
         Mockito.when(palindromeUtils.palindromeValidation(Mockito.anyString()))
                 .thenReturn(Boolean.FALSE);
 
         Assertions.assertNotNull(productServiceImpl.getPageOfProducts(searchString, PageRequest.of(1,24)));
         Assertions.assertNotNull(productServiceImpl.getPageOfProducts(searchId, PageRequest.of(1,24)));
-        Assertions.assertNotNull(productServiceImpl.getPageOfProducts(searchStringShort, PageRequest.of(1,24)));
+        Assertions.assertNotNull(productServiceImpl.getPageOfProducts(searchStringEmpty, PageRequest.of(1,24)));
+        Assertions.assertEquals(new PageImpl<>(Collections.emptyList()),productServiceImpl.getPageOfProducts(searchStringShort, PageRequest.of(1,24)));
     }
 
 
